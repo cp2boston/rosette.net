@@ -12,7 +12,7 @@ namespace Rosette {
             var p = RosetteParameters.DocumentParameters("George Bush")
                 .SetLanguage("eng");            
 
-            var api = Rosette.callEndpoint(Rosette.Endpoint.Ping, "7c3e0f9f51334a0793dde4be37cb22ce", p);
+            var api = Rosette.callEndpoint(Rosette.Endpoint.Ping, env.API_KEY, p);
             
         }
 
