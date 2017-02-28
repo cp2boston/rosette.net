@@ -57,12 +57,19 @@ module Rosette =
         member this.AltUrl url = 
             {this with url = url}
         member this.Execute = 
-            let response = Http.Request(url = setUrl this.url this.endpoint, headers = getHeaders this.apiKey, silentHttpErrors = true)
+            let response = 
+                match this.endpoint with
+                | Ping | Info -> Http.Request(url = setUrl this.url this.endpoint, headers = getHeaders this.apiKey, silentHttpErrors = true)
+                | _ -> Http.Request(url = setUrl this.url this.endpoint, headers = getHeaders this.apiKey, body = TextRequest this.parameters.AsJson, silentHttpErrors = true, httpMethod = "POST")
+
             {statusCode = response.StatusCode; headers = headers(response.Headers); body = body(response.Body)}
         
 
     let callEndpoint endpoint apiKey parameters = 
-        { endpoint = endpoint; apiKey = apiKey; url = "https://api.rosette.com/rest/v1"; parameters = parameters }
+        match endpoint with 
+        | Ping -> { endpoint = endpoint; apiKey = apiKey; url = "https://api.rosette.com/rest/v1"; parameters = parameters }
+        | Info -> { endpoint = endpoint; apiKey = apiKey; url = "https://api.rosette.com/rest/v1"; parameters = parameters }
+        | _ -> { endpoint = endpoint; apiKey = apiKey; url = "https://api.rosette.com/rest/v1"; parameters = parameters }
         
     let entities apikey url = 
         let response = Http.Request(url = setUrl url Endpoint.Entities, headers = getHeaders apikey, silentHttpErrors = true, httpMethod = "POST")
