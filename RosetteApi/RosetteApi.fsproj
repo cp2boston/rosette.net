@@ -51,10 +51,13 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Parameters.fs" />
+    <Compile Include="Common.fs" />
+    <Compile Include="DocumentParameters.fs" />
     <Compile Include="Endpoints.fs" />
     <None Include="Script.fsx" />
     <Content Include="packages.config" />
+    <Compile Include="NameTranslationParameters.fs" />
+    <Compile Include="NameSimilarityParameters.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Data">

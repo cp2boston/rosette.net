@@ -11,7 +11,7 @@ namespace Rosette {
 
             string apiKey = Environment.GetEnvironmentVariable("API_KEY");
             
-            var p = RosetteParameters.DocumentParameters("George Bush")
+            var p = DocumentParameters.Create("George Bush")
                 .SetLanguage("eng");            
 
             var api = Rosette.callEndpoint(Rosette.Endpoint.Ping, apiKey, p);

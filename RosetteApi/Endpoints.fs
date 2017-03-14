@@ -2,25 +2,37 @@
 
 open FSharp.Data
 open Microsoft.FSharp.Reflection
-open RosetteParameters
+open DocumentParameters
 
 type RosetteResponse = { statusCode: int; headers: System.Collections.Generic.IDictionary<string, string>; body: string }
 
 module Rosette = 
 
-    let GetUnionCaseName (x: 'a) = 
-        match FSharpValue.GetUnionFields(x, typeof<'a>) with
-        | case, _ -> case.Name
-
     type Endpoint = 
-        | Ping
-        | Info
+        | Categories
         | Entities
+        | Info
+        | Language
+        | Ping
+        | Relationships
+        | Sentences
+        | Sentiment
+        | SyntaxDependencies
+        | Tokens
+        | TextEmbedding
         member this.AsString = 
             match this with
-            | Ping -> "ping"
-            | Info -> "info"
+            | Categories -> "categories"
             | Entities -> "entities"
+            | Info -> "info"
+            | Language -> "language"
+            | Ping -> "ping"
+            | Relationships -> "relationships"
+            | Sentences -> "sentences"
+            | Sentiment -> "sentiment"
+            | SyntaxDependencies -> "syntax/dependencies"
+            | Tokens -> "tokens"
+            | TextEmbedding -> "text-embedding"
     
     let (|EndsWithSlash|) (s : string) = s.EndsWith("/")
 
@@ -66,13 +78,6 @@ module Rosette =
         
 
     let callEndpoint endpoint apiKey parameters = 
-        match endpoint with 
-        | Ping -> { endpoint = endpoint; apiKey = apiKey; url = "https://api.rosette.com/rest/v1"; parameters = parameters }
-        | Info -> { endpoint = endpoint; apiKey = apiKey; url = "https://api.rosette.com/rest/v1"; parameters = parameters }
-        | _ -> { endpoint = endpoint; apiKey = apiKey; url = "https://api.rosette.com/rest/v1"; parameters = parameters }
+        { endpoint = endpoint; apiKey = apiKey; url = "https://api.rosette.com/rest/v1"; parameters = parameters }
         
-    let entities apikey url = 
-        let response = Http.Request(url = setUrl url Endpoint.Entities, headers = getHeaders apikey, silentHttpErrors = true, httpMethod = "POST")
-
-        {statusCode = response.StatusCode; headers = headers(response.Headers); body = body(response.Body)}
 
