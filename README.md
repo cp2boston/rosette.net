@@ -1,2 +1,0 @@
-# rosette.net
-F# binding
