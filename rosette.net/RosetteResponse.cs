@@ -20,7 +20,7 @@ namespace RosetteApi {
         /// <summary>
         /// IDictionary of response content
         /// </summary>
-        public IDictionary<string, dynamic> Content { get; private set; }
+        public IDictionary<string, dynamic> Body { get; private set; }
         /// <summary>
         /// IDictionary of response headers
         /// </summary>
@@ -29,7 +29,7 @@ namespace RosetteApi {
         /// <summary>
         /// As returned by the API, the JSON string of response content
         /// </summary>
-        public string ContentAsJson { get; private set; }
+        public string BodyAsJson { get; private set; }
 
         /// <summary>
         /// RosetteResponse ctor
@@ -53,7 +53,7 @@ namespace RosetteApi {
                 MemoryStream stream = new MemoryStream(byteArray);
                 try {
                     using (StreamReader reader = new StreamReader(stream, Encoding.UTF8)) {
-                        ContentAsJson = reader.ReadToEnd();
+                        BodyAsJson = reader.ReadToEnd();
                     }
                 }
                 finally {
@@ -61,7 +61,7 @@ namespace RosetteApi {
                         stream.Dispose();
                     }
                 }
-                Content = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(ContentAsJson);
+                Body = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(BodyAsJson);
             }
             else {
                 throw new RosetteException(string.Format("{0}: {1}", responseMsg.ReasonPhrase, ContentToString(responseMsg.Content)), (int)responseMsg.StatusCode);

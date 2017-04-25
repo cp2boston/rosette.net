@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace RosetteApi.Tests {
     [TestFixture()]
-    public class PingTests {
+    public class EntitiesTests {
         [Test()]
-        public void PingTest() {
+        public void EntitiesTest() {
             string apiKey = Environment.GetEnvironmentVariable("API_KEY");
-            Api api = new Api(apiKey);
-            RosetteResponse response = new Ping(api).Run();
 
+            string entities_text_data = @"Bill Murray will appear in new Ghostbusters film: Dr. Peter Venkman was spotted filming a cameo in Boston this… http://dlvr.it/BnsFfS";
+            Api api = new Api(apiKey);
+            RosetteResponse response = new Entities(api).Content(entities_text_data).Run();
             System.Diagnostics.Debug.WriteLine(response.Headers);
             System.Diagnostics.Debug.WriteLine(response.Body);
-            System.Diagnostics.Debug.WriteLine(response.BodyAsJson);
         }
     }
 }

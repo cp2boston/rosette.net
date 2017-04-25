@@ -9,7 +9,6 @@ namespace RosetteApi {
     public class Ping : Endpoint {
         public Ping(Api api) : base(api) {
             EndpointUri = "ping";
-            API.SetupClient();
         }
 
         public override RosetteResponse Run() {

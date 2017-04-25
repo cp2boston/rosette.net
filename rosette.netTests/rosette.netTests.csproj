@@ -50,8 +50,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="EntitiesTests.cs" />
+    <Compile Include="NameSimilarityTests.cs" />
     <Compile Include="PingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SentimentTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
